@@ -17,7 +17,7 @@ public:
 		size = 0;
 	}
 
-	Vector(int size)
+	Vector(const int size)
 	{
 		this->size = size;
 		p = new int[size];
@@ -53,6 +53,37 @@ public:
 		{
 			cout << p[i] << " ";
 		}
+		cout << endl;
+	}
+
+	int get_size()
+	{
+		return size;
+	}
+
+	void push(const int data, const int pos)
+	{
+		if (pos > size)
+		{
+			cout << "Going beyond the vector" << endl;
+			return;
+		}
+
+		int* temp = new int[++size];
+
+		for (int i = 0, j = 0; i < size; i++, j++)
+		{
+			if (i == pos - 1)
+			{
+				temp[i] = data;
+				i++;
+			}
+			temp[i] = p[j];
+		}
+
+		delete[] p;
+		p = temp;
+		temp = nullptr;
 	}
 };
 
@@ -61,9 +92,8 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(5);
+	Vector a(3);
 	a.print_vector();
-	cout << endl;
-	Vector b(a);
-	b.print_vector();
+	a.push(99, 4);
+	a.print_vector();
 }
