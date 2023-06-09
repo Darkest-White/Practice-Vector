@@ -73,7 +73,7 @@ public:
 
 		for (int i = 0, j = 0; i < size; i++, j++)
 		{
-			if (i == pos - 1)
+			if (i == pos)
 			{
 				temp[i] = data;
 				i++;
@@ -92,7 +92,7 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(3);
+	Vector a(5);
 	a.print_vector();
 	a.push(99, 4);
 	a.print_vector();
