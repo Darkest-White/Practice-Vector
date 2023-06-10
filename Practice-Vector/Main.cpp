@@ -6,44 +6,64 @@ class Vector
 {
 private:
 
-	int* p;
+	int* data;
 	int size;
 
 public:
 
 	Vector()
 	{
-		p = nullptr;
+		data = nullptr;
 		size = 0;
 	}
 
 	Vector(const int size)
 	{
 		this->size = size;
-		p = new int[size];
+		data = new int[size];
 
 		for (int i = 0; i < size; i++)
 		{
-			p[i] = rand() % 11;
+			data[i] = rand() % 11;
 		}
 	}
 
 	Vector(const Vector& other)
 	{
-		this->size = other.size;
-		this->p = new int[this->size];
+		size = other.size;
+		data = new int[size];
 
-		for (int i = 0; i < this->size; i++)
+		for (int i = 0; i < size; i++)
 		{
-			this->p[i] = other.p[i];
+			data[i] = other.data[i];
 		}
 	}
 
 	~Vector()
 	{
-		delete[] p;
-		p = nullptr;
+		delete[] data;
+		data = nullptr;
 		size = 0;
+	}
+
+
+	Vector& operator=(const Vector& v)
+	{
+		size = v.size;
+
+		if (data != nullptr)
+		{
+			delete[] data;
+			data = nullptr;
+		}
+				
+		data = new int[size];
+
+		for (int i = 0; i < size; i++)
+		{
+			data[i] = v.data[i];
+		}
+		return *this;
 	}
 
 
@@ -51,7 +71,7 @@ public:
 	{
 		for (int i = 0; i < size; i++)
 		{
-			cout << p[i] << " ";
+			cout << data[i] << " ";
 		}
 		cout << endl;
 	}
@@ -61,7 +81,7 @@ public:
 		return size;
 	}
 
-	void insert(const int data, const int pos)
+	void insert(const int value, const int pos)
 	{
 		if (pos > size)
 		{
@@ -75,14 +95,14 @@ public:
 		{
 			if (i == pos)
 			{
-				temp[i] = data;
+				temp[i] = value;
 				i++;
 			}
-			temp[i] = p[j];
+			temp[i] = data[j];
 		}
 
-		delete[] p;
-		p = temp;
+		delete[] data;
+		data = temp;
 		temp = nullptr;
 	}
 
@@ -96,10 +116,10 @@ public:
 			{
 				j++;
 			}
-			temp[i] = p[j];
+			temp[i] = data[j];
 		}
-		delete[] p;
-		p = temp;
+		delete[] data;
+		data = temp;
 		temp = nullptr;
 	}
 };
@@ -109,8 +129,8 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(10);
-	a.print_vector();
-	a.del(5);
-	a.print_vector();
+	Vector a(1);
+	Vector b(1);
+
+	a = b;
 }
