@@ -61,7 +61,7 @@ public:
 		return size;
 	}
 
-	void push(const int data, const int pos)
+	void insert(const int data, const int pos)
 	{
 		if (pos > size)
 		{
@@ -85,6 +85,23 @@ public:
 		p = temp;
 		temp = nullptr;
 	}
+
+	void del(const int pos)
+	{
+		int* temp = new int[--size];
+
+		for (int i = 0, j = 0; i < size; i++, j++)
+		{
+			if (i == pos)
+			{
+				j++;
+			}
+			temp[i] = p[j];
+		}
+		delete[] p;
+		p = temp;
+		temp = nullptr;
+	}
 };
 
 
@@ -92,8 +109,8 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(5);
+	Vector a(10);
 	a.print_vector();
-	a.push(99, 4);
+	a.del(5);
 	a.print_vector();
 }
