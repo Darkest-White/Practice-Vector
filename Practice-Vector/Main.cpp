@@ -56,7 +56,7 @@ public:
 			delete[] data;
 			data = nullptr;
 		}
-				
+
 		data = new int[size];
 
 		for (int i = 0; i < size; i++)
@@ -64,6 +64,42 @@ public:
 			data[i] = v.data[i];
 		}
 		return *this;
+	}
+
+	bool operator==(const Vector& v)
+	{
+		if (size != v.size)
+		{
+			return false;
+		}
+
+		for (int i = 0; i < size; i++)
+		{
+			if (data[i] != v.data[i])
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	bool operator!=(const Vector& v)
+	{
+		if (size != v.size)
+		{
+			return true;
+		}
+
+		for (int i = 0; i < size; i++)
+		{
+			if (data[i] != v.data[i])
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 
@@ -129,8 +165,12 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(1);
-	Vector b(1);
+	Vector  a(10);
+	Vector b(10);
 
-	a = b;
+
+	if (a == b)
+	{
+		cout << "Success" << endl;
+	}
 }
