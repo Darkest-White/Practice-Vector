@@ -102,6 +102,26 @@ public:
 		return false;
 	}
 
+	Vector operator+(const Vector& v)
+	{
+		Vector tmp;
+		tmp.size = this->size + v.size;
+		tmp.data = new int[tmp.size];
+
+		int it = this->size;
+		for (int i = 0; i < this->size; i++)
+		{
+			tmp.data[i] = this->data[i];
+		}
+
+		for (int i = 0; i < v.size; i++, it++)
+		{
+			tmp.data[it] = v.data[i];
+		}
+
+		return tmp;
+	}
+
 
 	void print_vector()
 	{
@@ -166,11 +186,11 @@ int main()
 	srand(time(0));
 
 	Vector  a(10);
-	Vector b(10);
+	Vector b(5);
+	
+	a.print_vector();
+	b.print_vector();
 
-
-	if (a == b)
-	{
-		cout << "Success" << endl;
-	}
+	Vector c = a + b;
+	c.print_vector();
 }
