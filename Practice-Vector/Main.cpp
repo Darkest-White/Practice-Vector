@@ -124,9 +124,7 @@ public:
 
 	Vector& operator++()
 	{
-		size++;
-
-		int* tmp = new int[size];
+		int* tmp = new int[++size];
 
 		for (int i = 0; i < size - 1; i++)
 		{
@@ -139,6 +137,25 @@ public:
 		tmp = nullptr;
 
 		return *this;
+	}
+
+	Vector& operator++(int value)
+	{
+		Vector v = *this;
+
+		int* tmp = new int[++size];
+		
+		for (int i = 0; i < size - 1; i++)
+		{
+			tmp[i] = data[i];
+		}
+		tmp[size - 1] = rand() % 11;
+
+		delete[] data;
+		data = tmp;
+		tmp = nullptr;
+
+		return v;
 	}
 
 
@@ -206,6 +223,8 @@ int main()
 
 	Vector a(5);
 	a.print_vector();
-	++a;
+	a++;
+	a.print_vector();
+	a++;
 	a.print_vector();
 }
