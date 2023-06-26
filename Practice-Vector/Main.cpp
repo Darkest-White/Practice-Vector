@@ -144,7 +144,7 @@ public:
 		Vector v = *this;
 
 		int* tmp = new int[++size];
-		
+
 		for (int i = 0; i < size - 1; i++)
 		{
 			tmp[i] = data[i];
@@ -156,6 +156,11 @@ public:
 		tmp = nullptr;
 
 		return v;
+	}
+
+	int& operator[](const int index)
+	{
+		return data[index];
 	}
 
 
@@ -221,10 +226,9 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(5);
+	Vector a(10);
 	a.print_vector();
-	a++;
-	a.print_vector();
-	a++;
+	cout << a[1] << endl;
+	a[1] = 100;
 	a.print_vector();
 }
