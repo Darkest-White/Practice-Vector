@@ -47,9 +47,9 @@ public:
 	}
 
 
-	Vector& operator=(const Vector& v)
+	Vector& operator=(const Vector& other)
 	{
-		size = v.size;
+		size = other.size;
 
 		if (data != nullptr)
 		{
@@ -61,21 +61,22 @@ public:
 
 		for (int i = 0; i < size; i++)
 		{
-			data[i] = v.data[i];
+			data[i] = other.data[i];
 		}
+
 		return *this;
 	}
 
-	bool operator==(const Vector& v)
+	bool operator==(const Vector& other)
 	{
-		if (size != v.size)
+		if (size != other.size)
 		{
 			return false;
 		}
 
 		for (int i = 0; i < size; i++)
 		{
-			if (data[i] != v.data[i])
+			if (data[i] != other.data[i])
 			{
 				return false;
 			}
@@ -84,16 +85,16 @@ public:
 		return true;
 	}
 
-	bool operator!=(const Vector& v)
+	bool operator!=(const Vector& other)
 	{
-		if (size != v.size)
+		if (size != other.size)
 		{
 			return true;
 		}
 
 		for (int i = 0; i < size; i++)
 		{
-			if (data[i] != v.data[i])
+			if (data[i] != other.data[i])
 			{
 				return true;
 			}
@@ -102,21 +103,57 @@ public:
 		return false;
 	}
 
-	Vector operator+(const Vector& v)
+	Vector operator+(const Vector& other)
 	{
 		Vector tmp;
-		tmp.size = this->size + v.size;
+		tmp.size = this->size;
 		tmp.data = new int[tmp.size];
 
-		int it = this->size;
-		for (int i = 0; i < this->size; i++)
+		for (int i = 0; i < tmp.size; i++)
 		{
-			tmp.data[i] = this->data[i];
+			tmp.data[i] = this->data[i] + other.data[i];
 		}
 
-		for (int i = 0; i < v.size; i++, it++)
+		return tmp;
+	}
+
+	Vector operator-(const Vector& other)
+	{
+		Vector tmp;
+		tmp.size = this->size;
+		tmp.data = new int[tmp.size];
+
+		for (int i = 0; i < tmp.size; i++)
 		{
-			tmp.data[it] = v.data[i];
+			tmp.data[i] = this->data[i] - other.data[i];
+		}
+
+		return tmp;
+	}
+
+	Vector operator*(const int scalar)
+	{
+		Vector tmp;
+		tmp.size = size;
+		tmp.data = new int[tmp.size];
+
+		for (int i = 0; i < size; i++)
+		{
+			tmp.data[i] = data[i] * scalar;
+		}
+
+		return tmp;
+	}
+
+	Vector operator/(const int scalar)
+	{
+		Vector tmp;
+		tmp.size = size;
+		tmp.data = new int[tmp.size];
+
+		for (int i = 0; i < size; i++)
+		{
+			tmp.data[i] = data[i] / scalar;
 		}
 
 		return tmp;
@@ -124,38 +161,42 @@ public:
 
 	Vector& operator++()
 	{
-		int* tmp = new int[++size];
-
-		for (int i = 0; i < size - 1; i++)
+		for (int i = 0; i < size; i++)
 		{
-			tmp[i] = data[i];
+			data[i]++;
 		}
-		tmp[size - 1] = rand() % 11;
-
-		delete[] data;
-		data = tmp;
-		tmp = nullptr;
 
 		return *this;
 	}
 
 	Vector& operator++(int value)
 	{
-		Vector v = *this;
-
-		int* tmp = new int[++size];
-
-		for (int i = 0; i < size - 1; i++)
+		for (int i = 0; i < size; i++)
 		{
-			tmp[i] = data[i];
+			data[i]++;
 		}
-		tmp[size - 1] = rand() % 11;
 
-		delete[] data;
-		data = tmp;
-		tmp = nullptr;
+		return *this;
+	}
 
-		return v;
+	Vector& operator--()
+	{
+		for (int i = 0; i < size; i++)
+		{
+			data[i]--;
+		}
+
+		return *this;
+	}
+
+	Vector& operator--(int value)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			data[i]--;
+		}
+
+		return *this;
 	}
 
 	int& operator[](const int index)
@@ -215,6 +256,7 @@ public:
 			}
 			temp[i] = data[j];
 		}
+
 		delete[] data;
 		data = temp;
 		temp = nullptr;
@@ -226,9 +268,9 @@ int main()
 {
 	srand(time(0));
 
-	Vector a(10);
+	Vector a(5);
 	a.print_vector();
-	cout << a[1] << endl;
-	a[1] = 100;
+	a = a * 2;
 	a.print_vector();
+
 }
