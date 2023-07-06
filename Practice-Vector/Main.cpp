@@ -105,58 +105,58 @@ public:
 
 	Vector operator+(const Vector& other)
 	{
-		Vector tmp;
-		tmp.size = this->size;
-		tmp.data = new int[tmp.size];
+		Vector temp;
+		temp.size = this->size;
+		temp.data = new int[temp.size];
 
-		for (int i = 0; i < tmp.size; i++)
+		for (int i = 0; i < temp.size; i++)
 		{
-			tmp.data[i] = this->data[i] + other.data[i];
+			temp.data[i] = this->data[i] + other.data[i];
 		}
 
-		return tmp;
+		return temp;
 	}
 
 	Vector operator-(const Vector& other)
 	{
-		Vector tmp;
-		tmp.size = this->size;
-		tmp.data = new int[tmp.size];
+		Vector temp;
+		temp.size = this->size;
+		temp.data = new int[temp.size];
 
-		for (int i = 0; i < tmp.size; i++)
+		for (int i = 0; i < temp.size; i++)
 		{
-			tmp.data[i] = this->data[i] - other.data[i];
+			temp.data[i] = this->data[i] - other.data[i];
 		}
 
-		return tmp;
+		return temp;
 	}
 
 	Vector operator*(const int scalar)
 	{
-		Vector tmp;
-		tmp.size = size;
-		tmp.data = new int[tmp.size];
+		Vector temp;
+		temp.size = size;
+		temp.data = new int[temp.size];
 
 		for (int i = 0; i < size; i++)
 		{
-			tmp.data[i] = data[i] * scalar;
+			temp.data[i] = data[i] * scalar;
 		}
 
-		return tmp;
+		return temp;
 	}
 
 	Vector operator/(const int scalar)
 	{
-		Vector tmp;
-		tmp.size = size;
-		tmp.data = new int[tmp.size];
+		Vector temp;
+		temp.size = size;
+		temp.data = new int[temp.size];
 
 		for (int i = 0; i < size; i++)
 		{
-			tmp.data[i] = data[i] / scalar;
+			temp.data[i] = data[i] / scalar;
 		}
 
-		return tmp;
+		return temp;
 	}
 
 	Vector& operator++()
@@ -244,6 +244,23 @@ public:
 		temp = nullptr;
 	}
 
+	void push_back(const int value)
+	{
+		size++;
+
+		int* temp = new int[size];
+
+		for (int i = 0; i < size - 1; i++)
+		{
+			temp[i] = data[i];
+		}
+		temp[size - 1] = value;
+
+		delete[] data;
+		data = temp;
+		temp = nullptr;
+	}
+
 	void del(const int pos)
 	{
 		int* temp = new int[--size];
@@ -270,7 +287,6 @@ int main()
 
 	Vector a(5);
 	a.print_vector();
-	a = a * 2;
+	a.push_back(100);
 	a.print_vector();
-
 }
