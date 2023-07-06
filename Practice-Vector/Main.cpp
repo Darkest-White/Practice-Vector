@@ -246,9 +246,7 @@ public:
 
 	void push_back(const int value)
 	{
-		size++;
-
-		int* temp = new int[size];
+		int* temp = new int[++size];
 
 		for (int i = 0; i < size - 1; i++)
 		{
@@ -256,6 +254,21 @@ public:
 		}
 		temp[size - 1] = value;
 
+		delete[] data;
+		data = temp;
+		temp = nullptr;
+	}
+
+	void push_front(const int value)
+	{
+		int* temp = new int[++size];
+
+		for (int i = 1; i < size; i++)
+		{
+			temp[i] = data[i - 1];
+		}
+		temp[0] = value;
+				
 		delete[] data;
 		data = temp;
 		temp = nullptr;
@@ -287,6 +300,6 @@ int main()
 
 	Vector a(5);
 	a.print_vector();
-	a.push_back(100);
+	a.push_front(100);
 	a.print_vector();
 }
