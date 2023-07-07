@@ -276,6 +276,12 @@ public:
 
 	void del(const int pos)
 	{
+		if (pos >= size)
+		{
+			cout << "Going beyond the vector" << endl;
+			return;
+		}
+
 		int* temp = new int[--size];
 
 		for (int i = 0, j = 0; i < size; i++, j++)
@@ -300,6 +306,6 @@ int main()
 
 	Vector a(5);
 	a.print_vector();
-	a.push_front(100);
+	a.del(5);
 	a.print_vector();
 }
